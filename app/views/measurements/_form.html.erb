@@ -1,0 +1,29 @@
+<%= form_for(@measurement) do |f| %>
+  <% if @measurement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this measurement from being saved:</h2>
+
+      <ul>
+      <% @measurement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :measured_value %><br>
+    <%= f.text_field :measured_value %><span>mg/dl</span>
+  </div>
+  
+  <div class="field">
+    <%= f.label :measured_at %><br>
+    <%= f.date_select :measured_at %>
+    <%= f.time_select :measured_at %>
+  </div>
+
+   
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

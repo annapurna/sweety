@@ -1,0 +1,17 @@
+<table>
+	<tr>
+	  <th>Glucose level </th>
+	  <th> Measured At Time</th>
+	  <th>Created At </th>
+	</tr>
+	<% @measurements.each do |mm| %>
+ 	<tr>
+ 		<td><%= mm.measured_value %><span>mg/dl</span></td>
+ 		<td><%= mm.measured_at %></td>
+ 		<td><%= mm.created_at %></td>
+ 	</tr>
+ 	<% end %>
+</table>
+
+
+<%= link_to 'Add new Reading of the day',new_measurement_path %> | <%= link_to 'Back',root_path %>

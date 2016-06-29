@@ -1,0 +1,153 @@
+Patient Name: <%= @user.username.capitalize %>
+<br />
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+  <div class="btn-group daily" role="group" id="daily">
+    <button type="button" class="btn btn-default daily">Daily Report</button>
+  </div>
+  <div class="btn-group monthtodate" role="group" id="monthtodate">
+    <button type="button" class="btn btn-default monthtodate">Month to Date Report</button>
+  </div>
+  <div class="btn-group monthly" role="group" id="monthly">
+    <button type="button" class="btn btn-default monthly">Monthly Report</button>
+  </div>
+</div>
+
+<br />
+<br />
+<div class="container" id="datepicker1" style="display:none;">
+  <div class="row">
+   <div class='col-sm-3'>
+    <div class="form-group">
+     <div class='input-group date'>
+     Select Date
+      <input type='text' class='datepicker1' />
+       <span class="glyphicon glyphicon-calendar"></span>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="container" id="datepicker2" style="display:none;">
+  <div class="row">
+   <div class='col-sm-3'>
+    <div class="form-group">
+     <div class='input-group date'>
+      Select Till date
+      <input type='text' class='datepicker2' />
+      <span class="glyphicon glyphicon-calendar"></span>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="container" id="datepicker3" style="display:none;">
+  <div class="row">
+   <div class='col-sm-3'>
+    <div class="form-group">
+     <div class='input-group date'>
+     Select Month
+      <input type='text' class='datepicker3' />
+       <span class="glyphicon glyphicon-calendar"></span>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+<br />
+<br />
+
+
+  <div id="dailyreport" style="display: none;">
+  </div>
+  <div id="monthtodatereport" style="display: none;">
+  </div>
+  <div id="monthlyreport" style="display: none;">
+  </div>
+
+
+<%= link_to 'Back', :back %>
+
+  
+<script type="text/javascript">
+     var dateval = "";
+     var user ='<%= @user.to_json.html_safe %>';
+     $('#daily').click(function(){
+     $('#monthtodatereport').hide();
+     $('#monthlyreport').hide();
+     $('#datepicker3').hide();
+     $('#datepicker2').hide();
+     $('#datepicker1').show();
+     $('.datepicker1').datepicker();
+     $('.datepicker1').datepicker().on('changeDate', function(e){
+          dateval = e.date
+          $(this).datepicker('hide');
+           $.ajax({
+            type: 'get',
+            url: '/reports',
+            data: {dateval: dateval, report: 'daily',user: user},
+            success: function(data){
+              $('#monthtodatereport').hide();
+              $('#monthlyreport').hide();
+              $('#dailyreport').html(data)
+              $('#dailyreport').show();
+           }
+         });
+     });
+  });
+
+     $('#monthtodate').click(function(){
+      $('#dailyreport').hide();
+      $('#monthlyreport').hide();
+     $('#datepicker3').hide();
+     $('#datepicker1').hide();
+     $('#datepicker2').show();
+     $('.datepicker2').datepicker();
+     $('.datepicker2').datepicker().on('changeDate', function(e){
+          dateval = e.date
+          $(this).datepicker('hide');
+           $.ajax({
+            type: 'get',
+            url: '/reports',
+            data: {dateval: dateval, report: 'monthtodate', user: user},
+            success: function(data){
+              $('#dailyreport').hide();
+              $('#monthlyreport').hide();
+              $('#monthtodatereport').html(data)
+              $('#monthtodatereport').show();
+           }
+         });
+     });
+  });
+
+  $('#monthly').click(function(){
+    $('#dailyreport').hide();
+    $('#monthtodatereport').hide();
+     $('#datepicker2').hide();
+     $('#datepicker1').hide();
+     $('#datepicker3').show();
+     $('.datepicker3').datepicker({
+       format: "mm-yyyy",
+       viewMode: "months", 
+       minViewMode: "months"
+     });
+
+     $('.datepicker3').datepicker().on('changeMonth', function(e){
+          var currMonth = new Date(e.date).getMonth() + 1;
+          var currYear = String(e.date).split(" ")[3];
+           $(this).datepicker('hide');
+           $.ajax({
+            type: 'get',
+            url: '/reports',
+            data: {report: 'monthly',monthval: currMonth,yearval: currYear, user: user},
+            success: function(data){
+            $('#monthlyreport').html(data)
+            $('#monthlyreport').show();
+           }
+         });
+     });
+  });
+
+
+
+</script>

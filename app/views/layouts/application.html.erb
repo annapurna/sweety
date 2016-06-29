@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sweety</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+ <div class="container">
+ <% if user_signed_in? %>
+  Dear <%= current_user.role.name %>,
+  <span style="margin-left: 600px;"> <%= current_user.username.capitalize %> | <%= link_to 'Edit user', edit_user_registration_path %> | <%= link_to 'Logout', destroy_user_session_path, :method => :delete %></span>
+  <% end %>
+  <div class="container" style="margin-top: 50px;">
+    <%= flash_messages %>
+
+    <%= yield %>
+    </div>
+ </div>
+</body>
+</html>

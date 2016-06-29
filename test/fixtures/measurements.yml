@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  measured_value: 1
+  user_id: 1
+  measured_at: 2016-06-22 22:55:41
+
+two:
+  measured_value: 1
+  user_id: 1
+  measured_at: 2016-06-22 22:55:41

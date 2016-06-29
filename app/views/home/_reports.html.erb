@@ -1,0 +1,95 @@
+
+<% if report == 'daily'  %>
+  <% if @dailyreport.count != 0 %>
+<table class="table table-bordered table-hover">
+  <tr>
+   <th>Level mg/dl</th>
+   <th>Normal</th>
+   <th>Time</th>
+  </tr>
+  <% @dailyreport.each do |daily| %>
+    <tr>
+      <td><%= daily.measured_value %></td>
+      <td>110-150</td>
+      <td><%= daily.measured_at.strftime('%d-%m-%y,%H:%M:%S') %></td>
+    </tr>
+    <% end %>
+</table>
+<table class="table table-bordered table-hover">
+  <tr>
+   <th>Maximum</th>
+   <th>Minimum</th>
+   <th>Average</th>
+  </tr>
+  <tr>
+      <td><%= @dailyreport.maximum("measured_value") %>mg/dl</td>
+      <td><%= @dailyreport.minimum("measured_value") %>mg/dl</td>
+      <td><%= @dailyreport.average("measured_value") %>mg/dl</td>
+  </tr>
+</table>
+<% else %>
+  <span>No Readings On this Date!</span>
+<% end %>
+<% elsif report == 'monthtodate' %>
+<% if @monthtodatereport.count != 0 %>
+<table class="table table-bordered table-hover">
+  <tr>
+   <th>Level mg/dl</th>
+   <th>Normal</th>
+   <th>Time</th>
+  </tr>
+  <% @monthtodatereport.each do |daily| %>
+    <tr>
+      <td><%= daily.measured_value %></td>
+      <td>110-150</td>
+      <td><%= daily.measured_at.strftime('%d-%m-%y,%H:%M:%S') %></td>
+    </tr>
+  <% end %>
+</table>
+<table class="table table-bordered table-hover">
+  <tr>
+   <th>Maximum</th>
+   <th>Minimum</th>
+   <th>Average</th>
+  </tr>
+   <tr>
+      <td><%= @monthtodatereport.maximum("measured_value") %>mg/dl</td>
+      <td><%= @monthtodatereport.minimum("measured_value") %>mg/dl</td>
+      <td><%= @monthtodatereport.average("measured_value") %>mg/dl</td>
+    </tr>
+</table>
+<% else %>
+  <span>No Readings On this Date!</span>
+<% end %>
+<% elsif report == 'monthly' %>
+ <% if @monthlyreport.count != 0 %>
+ <table class="table table-bordered table-hover">
+  <tr>
+   <th>Level mg/dl</th>
+   <th>Normal</th>
+   <th>Time</th>
+  </tr>
+  <% @monthlyreport.each do |daily| %>
+    <tr>
+      <td><%= daily.measured_value %></td>
+      <td>110-150</td>
+      <td><%= daily.measured_at.strftime('%d-%m-%y,%H:%M:%S') %></td>
+    </tr>
+  <% end %>
+</table>
+<table class="table table-bordered table-hover">
+  <tr>
+   <th>Maximum</th>
+   <th>Minimum</th>
+   <th>Average</th>
+  </tr>
+   <tr>
+      <td><%= @monthlyreport.maximum("measured_value") %>mg/dl</td>
+      <td><%= @monthlyreport.minimum("measured_value") %>mg/dl</td>
+      <td><%= @monthlyreport.average("measured_value") %>mg/dl</td>
+    </tr>
+</table>
+<% else %>
+  <span>No Readings In this Month!</span>
+ <% end %>
+<% end %>
