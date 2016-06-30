@@ -1,2 +1,12 @@
-<%= @measurement.measured_at %>
-<%= @measurement.measured_value %>
+<table class="table table-horizontal">
+ <tr class="row">
+  <th class="col-md-5">Measured Time</th>
+  <th class="col-md-5">Measured Value</th>
+ </tr>
+ <tr class="row">
+	<td class="col-md-5"><%= @measurement.measured_at.strftime("%d-%m-%y,%H:%M:%S") %></td>
+	<td class="col-md-5"><%= @measurement.measured_value %>mg/dl</td>
+ </tr>
+</table>
+
+<%= link_to 'Back',root_path %>

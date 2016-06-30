@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 	before_action :authenticate_user!
   def index
      @user = current_user
-    if current_user.role.name == 'Doctor'
+    if current_user.role.name == 'doctor'.capitalize
       @patients = User.where(:role_id => 1) 
     end
   end
@@ -12,7 +12,7 @@ class HomeController < ApplicationController
        @user = JSON.parse(params[:user])
        @user = User.find(@user["id"])
     end
-   	current_user.role.name == 'Patient' ? (@user = current_user)  : (@user = @user)
+   	current_user.role.name == 'patient'.capitalize ? (@user = current_user)  : (@user = @user)
    	if params[:report] == 'daily'
   	@date = Date.parse(params[:dateval])
   	@dailyreport = @user.measurements.where(:created_at =>(@date.beginning_of_day..@date.end_of_day))
@@ -22,7 +22,8 @@ class HomeController < ApplicationController
   	elsif params[:report] == 'monthly'
   	 monthval = params[:monthval].to_i
   	 yearval = params[:yearval].to_i
-  	@monthlyreport = @user.measurements.where(:created_at => (Date.new(yearval,monthval,1)..Date.new(yearval,monthval,-1)))
+  	#@monthlyreport = @user.measurements.where(:created_at => (Date.new(yearval,monthval,1)..Date.new(yearval,monthval,31)))
+    @monthlyreport = @user.measurements.where("MONTH(created_at) = ? and YEAR(created_at) = ?", monthval, yearval)
   	end
   	render :partial => 'reports',:locals => {:report => params[:report]}
   end

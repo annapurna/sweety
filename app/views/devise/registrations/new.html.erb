@@ -13,27 +13,27 @@
 
   <div class="field">
     <%= f.label :username %>
-    <%= f.text_field :username, {autofocus: true,:class => "form-control col-md-9"} %>
+    <%= f.text_field :username, {autofocus: true, :required => true, :class => "form-control col-md-9"} %>
   </div>
 
   <div class="field">
     <%= f.label :age %><br />
-    <%= f.select :age,options_for_select(1..100), {autofocus: true,:class => "form-control col-md-2"} %>
+    <%= f.select :age,options_for_select(1..100), {autofocus: true,:required => true,:class => "form-control col-md-2"} %>
   </div>
 
   <div class="field">
     <%= f.label :gender %><br />
-    <%= f.select :gender, options_for_select(['Male','Female']),{autofocus: true,:class => "form-control col-md-9"} %>
+    <%= f.select :gender, options_for_select(['Male','Female']),{autofocus: true,:required => true,:class => "form-control col-md-9"} %>
   </div>
 
   <div class="field">
     <%= f.label :email %>
-    <%= f.email_field :email, {autofocus: true,:class => "form-control col-md-9"} %>
+    <%= f.email_field :email, {autofocus: true,:required => true,:class => "form-control col-md-9"} %>
   </div>
 
   <div class="field">
     <%= f.label :role_id %><br />
-    <%= f.collection_select :role_id, Role.all, :id, :name ,{autofocus: true,:class => "form-control col-md-9"} %>
+    <%= f.collection_select :role_id, Role.all, :id, :name ,{autofocus: true,:required => true,:class => "form-control col-md-9"} %>
   </div><br />
 
   <div class="field">
@@ -41,12 +41,12 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password,{autocomplete: "off",:class => "form-control col-md-9"} %>
+    <%= f.password_field :password,{autocomplete: "off",:required => true,:class => "form-control col-md-9"} %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, {autocomplete: "off",:class => "form-control col-md-9"} %>
+    <%= f.password_field :password_confirmation, {autocomplete: "off",:required => true,:class => "form-control col-md-9"} %>
   </div>
 <br />
 <br />

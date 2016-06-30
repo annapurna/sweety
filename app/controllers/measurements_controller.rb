@@ -16,7 +16,6 @@ class MeasurementsController < ApplicationController
       flash[:success] = "Readings entered"
  		 redirect_to @measurement
     else 
-     flash[:error] = @measurement.errors.full_messages.join(',')
      render :action => 'new'
     end
 	end

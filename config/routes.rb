@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
+
   root 'home#index'
 
-  devise_for :users
+  devise_for :users 
+  resources :users, only: [:index]
 
   resources :measurements
 
   get '/reports' => 'home#reports'
 
   get '/patients/:id' => 'home#patient_report'
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
